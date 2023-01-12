@@ -25,14 +25,18 @@ public class UsuarioApiRestController {
 
 	// requestbody : captura el cuerpo del mensaje
 	@RequestMapping("/guardar/usuario")
-	public Usuario guardarUsuario(@RequestBody Usuario usuario) {
+	public String guardarUsuario(@RequestBody Usuario usuario) {
 		/*
 		 * { nombre: "Piatun", correo: "azul@gmail.com", passwword: "secret" } todo esta
 		 * informacion de tipo Usuario(objeto) se guardara en la var usuario son los
 		 * atributos not null es la informacion que se va a capturar en el requestBody
 		 **/
-
-		return usuarioServiceImpl.guardarUsuario(usuario);
+		Boolean resultado = usuarioServiceImpl.guardarUsuario(usuario);
+		if(resultado) {//si es verdadero
+			return "Insertado correctamente"; //enviar a una vista
+		}else {
+			return "Error la crear usuario";
+		}
 	}
 
 	// request body: para eliminar necesitamos el id

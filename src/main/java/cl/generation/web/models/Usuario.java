@@ -27,7 +27,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 // entity: va a transformar nuestra clase en entidad
 // anotaciones, empiezan con @
 
@@ -45,20 +44,22 @@ public class Usuario {
 	private Long id;
 
 	@NotNull // obligatoria
-	@Size(min = 3, max = 15, message = "Error en el ingreso del nombre")
 	private String nombre;
 	// las anotaciones solo sirven para ese atributo
+
+	@NotNull
+	private String apellido;
 
 	@NotNull
 	private String correo;
 
 	@NotNull
-	@Size(min = 5, max = 8) // cantidad de caracteres, con string
 	private String password;
 
 	// relacion OneToOne // el mapeo de donde se hara la relación, cascada para que
 	// si se elimine algo se elimina todo, lazy para que triga toda la informacion
 	// permite eliminar error de cursividad ( vizualizacion )
+	@JsonIgnore
 	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Auto auto;
 
@@ -126,6 +127,14 @@ public class Usuario {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 	public String getCorreo() {
